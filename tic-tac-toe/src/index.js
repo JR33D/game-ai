@@ -75,7 +75,7 @@ class Game extends React.Component {
     
     // Apply AI move
     const squares = this.state.squares.slice();
-    const bestSquare = findBestSquare(squares, this.state.xIsNext ? "X" : "O");
+    const bestSquare = (Math.floor(Math.random() * 10) <= 4) ? findRandomSquare(squares, this.state.xIsNext ? "X" : "O") : findBestSquare(squares, this.state.xIsNext ? "X" : "O");
     if (bestSquare !== -1) {
       await this.makeMove(bestSquare); 
     }
@@ -149,6 +149,17 @@ function isBoardFilled(squares) {
     }
   }
   return true;
+}
+
+function findRandomSquare(squares, player) {
+  let availableSpots = [];
+  for (let i = 0; i < squares.length; i++) {
+    if(!squares[i]) {
+      availableSpots.push(i);
+    }
+  }
+  let move = Math.floor(Math.random() * availableSpots.length);
+  return availableSpots[move];
 }
 
 function findBestSquare(squares, player) {
