@@ -75,7 +75,9 @@ class Game extends React.Component {
     
     // Apply AI move
     const squares = this.state.squares.slice();
-    const bestSquare = (Math.floor(Math.random() * 10) <= 4) ? findRandomSquare(squares, this.state.xIsNext ? "X" : "O") : findBestSquare(squares, this.state.xIsNext ? "X" : "O");
+    let ran = Math.floor(Math.random() * 10);
+    console.log("Rand: " + ran);
+    const bestSquare = (ran >= 9) ? findRandomSquare(squares, this.state.xIsNext ? "X" : "O") : findBestSquare(squares, this.state.xIsNext ? "X" : "O");
     if (bestSquare !== -1) {
       await this.makeMove(bestSquare); 
     }
